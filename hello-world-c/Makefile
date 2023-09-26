@@ -8,7 +8,7 @@ LDLIBS += -lcrt -lcrt_helper -lgcc -lc -lcrtfix
 CFILES += main.c
 # conf_loader.c config_data.c
 
-SIEDEV_DIR=../../sie-dev2
+SIEDEV_DIR=../sie-dev
 include $(SIEDEV_DIR)/rules.mk
 
 install:
