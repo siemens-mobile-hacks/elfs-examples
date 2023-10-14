@@ -1,6 +1,6 @@
 PROJECT = hello-world
 
-LDLIBS += -lcrt -lcrt_helper -lgcc -lc -lstdc++
+LDLIBS += -lcrt -lcrt_helper -lgcc -lc -lstdc++ -lsupc++
 CXXFILES += main.cpp
 
 SIEDEV_DIR=../sie-dev
