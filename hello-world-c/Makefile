@@ -1,15 +1,8 @@
-DEVICE ?= NEWSGOLD
-BT_ADDR ?= 00:0D:41:14:65:C3
+PROJECT = hello-world
 
-PROJECT = hello-world-$(DEVICE).elf
-BUILD_DIR = bin
-
-LDLIBS += -lcrt -lcrt_helper -lgcc -lc -lcrtfix
+LDLIBS += -lcrt -lcrt_helper -lgcc -lc
 CFILES += main.c
 # conf_loader.c config_data.c
 
 SIEDEV_DIR=../sie-dev
-include $(SIEDEV_DIR)/rules.mk
-
-install:
-	bluetooth-sendto --device=$(BT_ADDR) hello-world-NEWSGOLD.elf
+include $(SIEDEV_DIR)/multi-target.mk
