@@ -6,5 +6,5 @@ CFLAGS += -D__NO_LIBC
 
 SOURCES += main.c
 
-SDK_PATH := ../../sdk
+SDK_PATH ?= ../sdk
 include $(SDK_PATH)/multi-target.mk
