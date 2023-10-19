@@ -1,9 +1,8 @@
 PROJECT = hello-world
 
-OPT := -Os
-LDLIBS += -lcrt -lcrt_helper -lgcc
-CFLAGS += -D__NO_LIBC
+OPT += -O2
 
+LDLIBS += -lcrt -lcrt_helper -lgcc -lc-1.0 -lm-1.0
 SOURCES += main.c
 
 SDK_PATH := ../../sdk

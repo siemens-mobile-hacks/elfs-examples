@@ -1,11 +1,6 @@
 #include <stdlib.h>
 #include <swilib.h>
 
-/*
-    Для отключение прямого вызова сви-функци добавьте дефайн __NO_DIRECT_SWI (Нужен пропатченный гцц)
-    Может быть полезным если нужно уменьшить размер эльфа.
-*/
-
 static unsigned short maincsm_name_body[140];
 static unsigned int MAINCSM_ID = 0;
 static unsigned int MAINGUI_ID = 0;
@@ -66,14 +61,14 @@ static int OnKey(MAIN_GUI *data, GUI_MSG *msg) {
 		switch (msg->gbsmsg->submess) {
 			case RIGHT_SOFT:
 				stop_redraw = 1;
-				return (1);
-
+			return (1);
+			
 			case '5':
 				stop_redraw = 1;
-				break;
+			break;
 		}
 	}
-
+	
 	REDRAW();
 	return (0);
 }
@@ -110,7 +105,7 @@ static void maincsm_oncreate(CSM_RAM *data) {
 	zeromem(main_gui, sizeof(MAIN_GUI));
 	main_gui->gui.canvas = (RECT*)(&Canvas);
 	main_gui->gui.methods = (void*) gui_methods;
-	main_gui->gui.item_ll.data_mfree = (void(*)(void*)) mfree_adr();
+	main_gui->gui.item_ll.data_mfree = (void (*)(void *)) mfree_adr();
 	csm->csm.state = 0;
 	csm->csm.unk1 = 0;
 	my_csm_id = csm->gui_id = CreateGUI(main_gui);

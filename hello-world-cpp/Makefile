@@ -1,7 +1,9 @@
 PROJECT = hello-world
 
-LDLIBS += -lcrt -lcrt_helper -lgcc -lc -lstdc++ -lsupc++
-CXXFILES += main.cpp
+OPT := -Os
+LDLIBS += -lcrt -lcrt_helper -lgcc -lc-1.0 -luclibc++-1.0 -lucsupc++
 
-SIEDEV_DIR=../sie-dev
-include $(SIEDEV_DIR)/multi-target.mk
+SOURCES += main.cpp TestClass.cpp
+
+SDK_PATH := ../../sdk
+include $(SDK_PATH)/multi-target.mk

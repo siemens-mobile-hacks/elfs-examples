@@ -4,6 +4,7 @@
 #include <errno.h>
 #include <stdlib.h>
 
+#include "TestClass.h"
 
 /*
     Для отключение прямого вызова сви-функци добавьте дефайн __NO_DIRECT_SWI (Нужен пропатченный гцц)
@@ -15,6 +16,8 @@ unsigned int MAINCSM_ID = 0;
 unsigned int MAINGUI_ID = 0;
 const int minus11=-11;
 int my_csm_id=0;
+
+static TestClass *test = NULL;
 
 typedef struct
 {
@@ -142,6 +145,10 @@ void ElfKiller(void)
 
 static void maincsm_onclose(CSM_RAM *csm)
 {
+    if (test) {
+		delete test;
+		test = NULL;
+	}
     SUBPROC((void *)ElfKiller);
 }
 
@@ -197,7 +204,7 @@ void UpdateCSMname(void)
 
 int main(const char *exename, const char *fname)
 {
-	ShowMSG(0, (int) "Hello World from C++ elf! Текст на русском языке, лол! CP1251!");
+	test = new TestClass("Hello World from C++ class!");
 	
     MAIN_CSM main_csm;
     LockSched();
