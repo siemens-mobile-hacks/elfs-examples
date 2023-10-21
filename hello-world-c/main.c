@@ -154,7 +154,9 @@ static void UpdateCSMname(void) {
 }
 
 int main(int argc, char **argv) {
-	ShowMSG(0, (int) "Hello World from elf! Текст на русском языке, лол! CP1251!");
+	char str[1024];
+	sprintf(str, "Hello World from elf! Текст на русском языке, лол! CP1251! %d%d%d%d%d", 1, 2, 3, 4, 5);
+	ShowMSG(0, (int) str);
 	
 	MAIN_CSM main_csm;
 	LockSched();
