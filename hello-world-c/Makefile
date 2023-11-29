@@ -2,7 +2,8 @@ PROJECT = hello-world
 
 OPT := -Os
 LDLIBS += -lcrt -lcrt_helper -lgcc
-CFLAGS += -D__NO_LIBC
+DEFINES += -D__NO_LIBC
+CPPFLAGS += -Wno-unused-variable
 
 SOURCES += main.c
 
