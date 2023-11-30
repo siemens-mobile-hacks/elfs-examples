@@ -54,10 +54,10 @@ static void gui_onfocus(GUI *data, malloc_func_t malloc_fn, mfree_func_t mfree_f
 	// Запрещаем выходить в IDLE по таймауту
 	DisableIDLETMR();
 	
-	#ifdef ELKA
+#ifdef ELKA
 	// Запрещаем рисовать иконбар с временем, уровнем сети и т.д. на ёлке
 	DisableIconBar(1);
-	#endif
+#endif
 }
 
 // Вызывается когда GUI перестаёт быть виден на экране
@@ -75,10 +75,10 @@ static void gui_onunfocus(GUI *data, mfree_func_t mfree_fn) {
 	// Разрешаем уходить в IDLE по таймауту
 	RestartIDLETMR();
 	
-	#ifdef ELKA
+#ifdef ELKA
 	// Разрешаем рисовать иконбар с временем, уровнем сети и т.д. на ёлке
 	DisableIconBar(0);
-	#endif
+#endif
 }
 
 // Вызывается при нажатии кнопок
@@ -94,6 +94,11 @@ static int gui_onkey(GUI *data, GUI_MSG *msg) {
 			case '5':
 				// Если нажали кнопку '5', перерисуем экран
 				REDRAW();
+			break;
+			
+			case '1':
+				// Если нажали кнопку '1', выведем алерт
+				ShowMSG(1, (int) "Текст в cp1251!");
 			break;
 		}
 	}
@@ -150,8 +155,8 @@ static void maincsm_oncreate(CSM_RAM *data) {
 	csm->csm.state = CSM_STATE_OPEN;
 	csm->csm.unk1 = 0;
 	
-	// Pадаём границы канваса (рисуем на весь экран)
-	StoreXYWHtoRECT(&gui_rect, 0, 0, ScreenW() - 1, ScreenH() - 1);
+	// Задаём границы канваса (рисуем на весь экран)
+	StoreXYWHtoRECT(&gui_rect, 0, 0, ScreenW(), ScreenH());
 	
 	// Создаём наш GUI и запомнияем его ID в csm->gui_id
 	MAIN_GUI *gui = malloc(sizeof(MAIN_GUI));
@@ -169,7 +174,7 @@ static void maincsm_onclose(CSM_RAM *csm) {
 	kill_elf();
 }
 
-// Вызываемся для всех GBS-сообщений в MMI процесс
+// Вызывается для всех GBS-сообщений в MMI процесс
 static int maincsm_onmessage(CSM_RAM *data, GBS_MSG *msg) {
 	MAIN_CSM *csm = (MAIN_CSM *) data;
 	if ((msg->msg == MSG_GUI_DESTROYED) && ((int) msg->data0 == csm->gui_id)) {
@@ -182,19 +187,18 @@ static int maincsm_onmessage(CSM_RAM *data, GBS_MSG *msg) {
 
 // Структура, которая описывает CSM
 static const int minus11 = -11; // Что-то загадочное, но важное :D
-static uint16_t maincsm_name_body[140]; // Память для имени CSM
+static uint16_t maincsm_name_body[140]; // Память для названия CSM
 
 static const struct {
 	CSM_DESC maincsm; // Это сам CSM
 	WSHDR maincsm_name; // Это специальная строка для XTask с именем CSM
-	// Далее могут идти любые пользовательские поля
 } MAINCSM = {
 	.maincsm = {
 		maincsm_onmessage,
 		maincsm_oncreate,
-	#ifdef NEWSGOLD
+#ifdef NEWSGOLD
 		0, 0, 0, 0, 
-	#endif
+#endif
 		maincsm_onclose,
 		sizeof(MAIN_CSM),
 		1, &minus11
