@@ -8,5 +8,5 @@ LDLIBS += -lcrt -lcrt_helper -lgcc -lc
 
 SOURCES += main.c
 
-SDK_PATH ?= ../sdk
+SDK_PATH ?= ../../sdk
 include $(SDK_PATH)/multi-target.mk

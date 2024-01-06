@@ -1,4 +1,1 @@
 
-[submodule "sdk"]
-	path = sdk
-	url = https://github.com/siemens-mobile-hacks/sdk
