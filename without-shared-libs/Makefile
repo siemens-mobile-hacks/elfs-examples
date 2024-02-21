@@ -2,7 +2,7 @@ PROJECT = hello-world
 DEBUG := 1
 
 OPT := -Os
-LDLIBS += -lcrt-static
+LDLIBS += -lcrt-static -lgcc
 DEFINES += -D__NO_LIBC
 CPPFLAGS += -mthumb -Wno-unused-variable
 SOURCES += main.c
